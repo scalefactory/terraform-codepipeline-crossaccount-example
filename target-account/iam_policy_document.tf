@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "kms-usage" {
 
     principals {
       type        = "AWS"
-      identifiers = [var.codepipeline_role_arn]
+      identifiers = [aws_iam_role.target.arn]
     }
 
     resources = ["*"]
@@ -47,7 +47,7 @@ data "aws_iam_policy_document" "kms-usage" {
 
     principals {
       type        = "AWS"
-      identifiers = [var.codepipeline_role_arn]
+      identifiers = [aws_iam_role.target.arn]
     }
 
     resources = ["*"]
@@ -65,23 +65,16 @@ data "aws_iam_policy_document" "target" {
     effect = "Allow"
 
     actions = [
-      "s3:PutObject"
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:PutObjectVersionAcl",
+      "s3:GetObject",
+      "s3:ListBucket"
     ]
 
     resources = [
-      "arn:aws:s3:::${aws_s3_bucket.target.arn}/*"
-    ]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "s3:GetObject"
-    ]
-
-    resources = [
-      "${var.artifact_bucket_arn}/*"
+      aws_s3_bucket.target.arn,
+      "${aws_s3_bucket.target.arn}/*"
     ]
   }
 
@@ -95,6 +88,31 @@ data "aws_iam_policy_document" "target" {
 
     resources = [
       "${aws_kms_key.target-key.arn}"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "s3:GetObject"
+    ]
+
+    resources = [
+      var.artifact_bucket_arn,
+      "${var.artifact_bucket_arn}/*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "kms:Decrypt"
+    ]
+
+    resources = [
+      var.artifact_kms_key_arn
     ]
   }
 }

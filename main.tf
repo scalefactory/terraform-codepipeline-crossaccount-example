@@ -16,6 +16,7 @@ module "target" {
   source = "./target-account"
 
   artifact_bucket_arn   = module.pipeline.artifact_bucket_arn
+  artifact_kms_key_arn  = module.pipeline.artifact_kms_key_arn
   bucket_name           = var.target_bucket_name
   codepipeline_role_arn = module.pipeline.codepipeline_role_arn
 

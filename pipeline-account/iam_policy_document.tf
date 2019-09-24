@@ -80,7 +80,8 @@ data "aws_iam_policy_document" "codepipeline" {
   statement {
     actions = [
       "s3:GetObject",
-      "s3:PutObject"
+      "s3:PutObject",
+      "s3:ListBucket"
     ]
 
     resources = [
@@ -103,27 +104,12 @@ data "aws_iam_policy_document" "codepipeline" {
     effect = "Allow"
 
     actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:ListBucket",
-    ]
-
-    resources = [
-      "arn:aws:s3:::${var.target_bucket_name}/*",
-      "arn:aws:s3:::${var.target_bucket_name}"
-    ]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
       "kms:Encrypt",
       "kms:Decrypt"
     ]
 
     resources = [
-      var.target_kms_key_arn,
+      aws_kms_key.artifacts.arn,
     ]
   }
 }
