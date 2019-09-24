@@ -1,0 +1,55 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-codepipeline-crossaccount-example
+
+# Tags of this project
+tags:
+  - aws
+  - terraform
+  - terraform-modules
+  - codepipeline
+  - s3
+
+# License of this project
+license: "ISC"
+
+# Copyrights
+copyrights:
+  - name: "The Scale Factory Ltd."
+    url: "https://scalefactory.com"
+    year: "2019"
+
+# Canonical GitHub repo
+github_repo: scalefactory/terraform-codepipeline-crossaccount-example
+
+# Badges to display
+badges:
+  - name: "License"
+    image: "https://img.shields.io/badge/License-ISC-blue.svg"
+    url: "https://opensource.org/licenses/ISC"
+
+# References
+references:
+  - name: "Terraform"
+    description: "Infrastructure as code"
+    url: "https://terraform.io"
+
+# Short description of this project
+description: |-
+  A Terraform reference module to create a CodePipeline which deploys files to
+  an S3 bucket in another account.
+
+# Introduction to the project
+introduction: |-
+  This module is intended to serve as a reference only, it would need to be adapted
+  to suit your own needs before being deployed into a production environment.
+
+# Contributors to this project
+contributors:
+  - name: "Rob Taylor"
+    github: "robbytaylor"
